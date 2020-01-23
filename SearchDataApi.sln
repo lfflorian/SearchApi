@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchDataApi.Common", "Sea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchDataApi.Services", "SearchDataApi.Services\SearchDataApi.Services.csproj", "{D1677B2B-48B9-493A-AEAB-3EEE59967BB7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchDataApi.WebApiComunication", "SearchDataApi.WebApiComunication\SearchDataApi.WebApiComunication.csproj", "{3A224966-73A6-49CD-9C15-38067D0B7E3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{D1677B2B-48B9-493A-AEAB-3EEE59967BB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1677B2B-48B9-493A-AEAB-3EEE59967BB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1677B2B-48B9-493A-AEAB-3EEE59967BB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A224966-73A6-49CD-9C15-38067D0B7E3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A224966-73A6-49CD-9C15-38067D0B7E3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A224966-73A6-49CD-9C15-38067D0B7E3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A224966-73A6-49CD-9C15-38067D0B7E3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
