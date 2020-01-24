@@ -28,7 +28,7 @@ namespace SearchDataApi.WebApiComunication
                 RequestUri = new Uri(url)
             };
 
-            if (data != "")
+            if ( data != null)
                 request.Content = new StringContent(data);
 
             headers.ToList().ForEach(e => {

@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SearchDataApi.Common\SearchDataApi.Common.csproj" />
+    <ProjectReference Include="..\SearchDataApi.WebApiComunication\SearchDataApi.WebApiComunication.csproj" />
+  </ItemGroup>
+
 </Project>

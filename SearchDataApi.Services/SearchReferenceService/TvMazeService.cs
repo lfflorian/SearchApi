@@ -1,7 +1,8 @@
-﻿using SearchDataApi.Common.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SearchDataApi.Common.Interfaces;
+using SearchDataApi.WebApiComunication;
 
 namespace SearchDataApi.Services.SearchReferenceService
 {
@@ -22,7 +23,16 @@ namespace SearchDataApi.Services.SearchReferenceService
         public string SearchInService(string inputText)
         {
             var urlRequest = $"{Url}{inputText}";
-            return urlRequest;
+            var response = Api.SendRequest(urlRequest, null, new Dictionary<string, object>(), Api.Method.GET);
+            var information = Api.GetResponseInformation(response);
+            if (information.StatusCode == System.Net.HttpStatusCode.OK )
+            {
+                return information.Data;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
