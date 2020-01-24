@@ -24,7 +24,7 @@ namespace SearchDataApi.Api.Controllers
             ISearchReferenceServicesImplementation.ToList().ForEach(reference => {
                 ISearchReferenceService SearhReference = (ISearchReferenceService)Activator.CreateInstance(reference);
                 var resultado = SearhReference.SearchInService(content);
-                results = SearhReference.ConsolidateRequestService(resultado);
+                results.AddRange(SearhReference.ConsolidateRequestService(resultado));
             });
             
             return results;

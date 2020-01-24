@@ -1,36 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SearchDataApi.Common.Classes;
 using SearchDataApi.Common.Interfaces;
+using System;
+using System.Collections.Generic;
 using SearchDataApi.WebApiComunication;
-using Newtonsoft.Json;
-using SearchDataApi.Services;
+using System.Text;
 using Newtonsoft.Json.Linq;
-using SearchDataApi.Common.Classes;
 
 namespace SearchDataApi.Services.SearchReferenceService
 {
-    public class TvMazeService : ISearchReferenceService
+    class AppleService : ISearchReferenceService
     {
         public string Url { get; set; }
 
-        public TvMazeService()
+        public AppleService()
         {
-            Url = "http://api.tvmaze.com/search/shows?q=";
+            Url = "https://itunes.apple.com/search?term=";
         }
 
         public List<Request> ConsolidateRequestService(object dataResponse)
         {
             List<Request> Results = new List<Request>();
 
-            var array = JArray.Parse((string)dataResponse);
+            var jsonObject = JObject.Parse((string)dataResponse);
+
+            var array = JArray.Parse(jsonObject["results"].ToString());
 
             foreach (JObject obj in array.Children<JObject>())
             {
                 Results.Add(new Request()
                 {
-                    From = "TvMaze",
-                    Content = obj["show"]
+                    From = "Apple",
+                    Content = obj
                 });
             }
 
@@ -42,7 +42,7 @@ namespace SearchDataApi.Services.SearchReferenceService
             var urlRequest = $"{Url}{inputText}";
             var response = Api.SendRequest(urlRequest, null, new Dictionary<string, object>(), Api.Method.GET);
             var information = Api.GetResponseInformation(response);
-            if (information.StatusCode == System.Net.HttpStatusCode.OK )
+            if (information.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 return information.Data;
             }
