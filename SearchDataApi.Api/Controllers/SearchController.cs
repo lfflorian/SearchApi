@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SearchDataApi.Services;
 using SearchDataApi.Common.Interfaces;
+using SearchDataApi.Common.Classes;
+
 
 namespace SearchDataApi.Api.Controllers
 {
@@ -15,16 +17,17 @@ namespace SearchDataApi.Api.Controllers
     {
         // GET api/values
         [HttpGet("{content}")]
-        public ActionResult<string> Get(string content)
+        public ActionResult<List<Request>> Get(string content)
         {
             var ISearchReferenceServicesImplementation = ReferenceServices.GgetAllTypes();
-
+            List<Request> results = new List<Request>();
             ISearchReferenceServicesImplementation.ToList().ForEach(reference => {
                 ISearchReferenceService SearhReference = (ISearchReferenceService)Activator.CreateInstance(reference);
                 var resultado = SearhReference.SearchInService(content);
+                results = SearhReference.ConsolidateRequestService(resultado);
             });
             
-            return "value";
+            return results;
         }
     }
 }

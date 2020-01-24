@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using SearchDataApi.Common.Interfaces;
 using SearchDataApi.WebApiComunication;
+using Newtonsoft.Json;
+using SearchDataApi.Services;
+using Newtonsoft.Json.Linq;
+using SearchDataApi.Common.Classes;
 
 namespace SearchDataApi.Services.SearchReferenceService
 {
@@ -15,9 +19,23 @@ namespace SearchDataApi.Services.SearchReferenceService
             Url = "http://api.tvmaze.com/search/shows?q=";
         }
 
-        public string ConsolidateRequestService(object Format, string json)
+        public List<Request> ConsolidateRequestService(object dataResponse)
         {
-            throw new NotImplementedException();
+            List<Request> Results = new List<Request>();
+
+            var array = JArray.Parse((string)dataResponse);
+
+            foreach (JObject obj in array.Children<JObject>())
+            {
+                var o = obj["show"];
+                Results.Add(new Request()
+                {
+                    From = "TvMaze",
+                    Content = obj["show"]
+                });
+            }
+
+            return Results;
         }
 
         public string SearchInService(string inputText)

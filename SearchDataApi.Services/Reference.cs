@@ -12,7 +12,7 @@ namespace SearchDataApi.Services
         {
             return  AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
-                .Where(p => typeof(ISearchReferenceService).IsAssignableFrom(p));
+                .Where(p => typeof(ISearchReferenceService).IsAssignableFrom(p) && !p.IsInterface);
         }
     }
 }
