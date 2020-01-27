@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 using SOAPDemoService;
 using System.Threading.Tasks;
+using Newtonsoft;
+using Newtonsoft.Json.Linq;
 
 namespace SearchDataApi.Services.SearchReferenceService
 {
@@ -12,21 +14,34 @@ namespace SearchDataApi.Services.SearchReferenceService
     {
         public List<Request> ConsolidateRequestService(object dataResponse)
         {
-            throw new NotImplementedException();
+            List<Request> Results = new List<Request>();
+
+            var array = JArray.Parse((string)dataResponse);
+
+            foreach (JObject obj in array.Children<JObject>())
+            {
+                Results.Add(new Request()
+                {
+                    From = "DemoSoap",
+                    Content = obj
+                });
+            }
+
+            return Results;
         }
 
         public string SearchInService(string inputText)
         {
-            SOAPDemoService.SOAPDemoSoapClient SoapClient = new SOAPDemoSoapClient();
-            var persons = GetPersons(inputText);
-            //person.
-            return "";
+            Task<PersonIdentification[]> task = GetPeople(inputText);
+            task.Wait();
+            var people = task.Result;
+            return Newtonsoft.Json.JsonConvert.SerializeObject(people);
         }
 
-        private async Task GetPersons(string inputText)
+        private async Task<PersonIdentification[]> GetPeople(string inputText)
         {
-            SOAPDemoService.SOAPDemoSoapClient SoapClient = new SOAPDemoSoapClient();
-            var persons =  await SoapClient.GetByNameAsync(inputText).ConfigureAwait(false);
+            SOAPDemoSoapClient SoapClient = new SOAPDemoSoapClient();
+            return  await SoapClient.GetListByNameAsync(inputText).ConfigureAwait(false);
         }
     }
 }
